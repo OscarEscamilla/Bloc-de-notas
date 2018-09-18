@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controllers;
 
 import java.awt.event.ActionEvent;
@@ -50,49 +46,41 @@ public class ControllerBloc {
         }
         
     };
+    public void guardarArchivo() {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    JFileChooser filtro = new JFileChooser();
+    
+    
+    if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(viewbloc)) {
+        try {
+            File file = fileChooser.getSelectedFile();
+            FileWriter filewriter = new FileWriter(file, false);
+            try(PrintWriter printwriter = new PrintWriter(filewriter)){
+                printwriter.println(modelbloc.getTexto());
+            }
+            /*
+            escritor = new FileWriter(archivo);
+            escritor.write(notas.getText());*/
+        } catch (FileNotFoundException err) {
+            System.err.println("File not found: " + err.getMessage());
+        } catch (IOException err) {
+            System.err.println("Error on I/O operation: " + err.getMessage());
+        } 
+    }
+}
     
     
     public void enviarTexto(){
         modelbloc.setTexto(viewbloc.jta_espacio.getText());
     }
-    
-    public void guardarArchivo(){
-        try{
-            File file = new File(modelbloc.getPath());
-            FileWriter filewriter = new FileWriter(file, false);
-            try(PrintWriter printwriter = new PrintWriter(filewriter)){
-                printwriter.println(modelbloc.getTexto());
-            }
-        }catch(FileNotFoundException err){
-            System.err.println("File not found: " + err.getMessage());
-        }catch(IOException err){
-            System.err.println("Error on I/O operation: " + err.getMessage());
-        }
-        
-    }
+
     
     
-      /*try{    ESTO ES EL CODIGO PARA LEER EL ARCHIVO EN LA PRIMERA VERSION SIN FILE CHOSER
-            String row;
-            StringBuilder contenido = new StringBuilder();
-            try(FileReader file = new FileReader(modelbloc.getPath())){
-                BufferedReader bufferedreader = new BufferedReader(file);
-                while ((row = bufferedreader.readLine()) != null) {                    
-                    contenido.append(row);
-                    contenido.append("\n");
-                }
-            viewbloc.jta_espacio.setText(String.valueOf(contenido));
-            }
-        }catch(FileNotFoundException err){
-            System.err.println("File not found: " + err.getMessage());
-        }catch(IOException err){
-            System.err.println("Error on I/O operation: " + err.getMessage());
-        }
-    }*/
     public void abrirArchivo() {
     JFileChooser jfc = new JFileChooser(); //CREAMOS UN OBJETO PARA ACCEDER AL FILECHOSER
     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);//definimos el modo de seleccion para el obejto
-    FileNameExtensionFilter filtro = new FileNameExtensionFilter(null, "txt");
+    FileNameExtensionFilter filtro = new FileNameExtensionFilter(null, "txt");//agregamos el filtro txt
     jfc.setFileFilter(filtro);
     
     
