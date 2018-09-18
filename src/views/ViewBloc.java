@@ -32,7 +32,7 @@ public class ViewBloc extends javax.swing.JFrame {
         jta_espacio = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jmi_leer = new javax.swing.JMenuItem();
+        jmi_abrir = new javax.swing.JMenuItem();
         jmi_guardar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,8 +46,13 @@ public class ViewBloc extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jmi_leer.setText("Leer");
-        jMenu1.add(jmi_leer);
+        jmi_abrir.setText("Abrir");
+        jmi_abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_abrirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmi_abrir);
 
         jmi_guardar.setText("Guardar");
         jMenu1.add(jmi_guardar);
@@ -69,6 +74,10 @@ public class ViewBloc extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmi_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmi_abrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,8 +119,8 @@ public class ViewBloc extends javax.swing.JFrame {
     public javax.swing.JMenu jMenu1;
     public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JMenuItem jmi_abrir;
     public javax.swing.JMenuItem jmi_guardar;
-    public javax.swing.JMenuItem jmi_leer;
     public javax.swing.JTextArea jta_espacio;
     // End of variables declaration//GEN-END:variables
 }
