@@ -33,7 +33,9 @@ public class ViewBloc extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmi_abrir = new javax.swing.JMenuItem();
+        jmi_guardar_cifrado = new javax.swing.JMenuItem();
         jmi_guardar = new javax.swing.JMenuItem();
+        jmi_decifrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,8 +56,19 @@ public class ViewBloc extends javax.swing.JFrame {
         });
         jMenu1.add(jmi_abrir);
 
+        jmi_guardar_cifrado.setText("Guardar Cifrado");
+        jmi_guardar_cifrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_guardar_cifradoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmi_guardar_cifrado);
+
         jmi_guardar.setText("Guardar");
         jMenu1.add(jmi_guardar);
+
+        jmi_decifrar.setText("Decifrar");
+        jMenu1.add(jmi_decifrar);
 
         jMenuBar1.add(jMenu1);
 
@@ -78,6 +91,10 @@ public class ViewBloc extends javax.swing.JFrame {
     private void jmi_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmi_abrirActionPerformed
+
+    private void jmi_guardar_cifradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_guardar_cifradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmi_guardar_cifradoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,7 +137,9 @@ public class ViewBloc extends javax.swing.JFrame {
     public javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JMenuItem jmi_abrir;
+    public javax.swing.JMenuItem jmi_decifrar;
     public javax.swing.JMenuItem jmi_guardar;
+    public javax.swing.JMenuItem jmi_guardar_cifrado;
     public javax.swing.JTextArea jta_espacio;
     // End of variables declaration//GEN-END:variables
 }
