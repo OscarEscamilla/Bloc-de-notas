@@ -29,6 +29,8 @@ public class ControllerBloc {
         this.viewbloc = viewbloc;
         this.viewbloc.jmi_abrir.addActionListener(actionlistener);
         this.viewbloc.jmi_guardar_cifrado.addActionListener(actionlistener);
+        this.viewbloc.jmi_guardar.addActionListener(actionlistener);
+        this.viewbloc.jmi_decifrar.addActionListener(actionlistener);
         initComponents();
     }
     
@@ -43,9 +45,9 @@ public class ControllerBloc {
                 guardarCifrado();
                 
             }else if (e.getSource() == viewbloc.jmi_decifrar){
-                
+                decifrarArchivo();
             }else if (e.getSource() == viewbloc.jmi_guardar){
-                
+                guardarDatos();
             }
         }
         
@@ -62,7 +64,7 @@ public class ControllerBloc {
             File file = fileChooser.getSelectedFile();
             FileWriter filewriter = new FileWriter(file, false);
             try(PrintWriter printwriter = new PrintWriter(filewriter)){
-                cadena = modelbloc.cifrarDatos(viewbloc.jta_espacio.getText());
+                cadena = modelbloc.cifrarDatos(modelbloc.getTexto());
                 printwriter.println(cadena);  
             }
             /*
@@ -76,25 +78,24 @@ public class ControllerBloc {
     }
 }
     public void guardarDatos() {
-    String cadena;
+ ;
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-    JFileChooser filtro = new JFileChooser();
+    
     
     
     if (JFileChooser.APPROVE_OPTION == fileChooser.showSaveDialog(viewbloc)) {
-        try {
-            File file = fileChooser.getSelectedFile();
-            FileWriter filewriter = new FileWriter(file, false);
-            try(PrintWriter printwriter = new PrintWriter(filewriter)){
-                cadena = modelbloc.cifrarDatos(viewbloc.jta_espacio.getText());
-                printwriter.println(cadena);  
-            }
-            /*
-            escritor = new FileWriter(archivo);
-            escritor.write(notas.getText());*/
+        try{
+             File archivo = fileChooser.getSelectedFile();
+             FileWriter filewriter = new FileWriter(archivo,  false);
             
-        } catch (FileNotFoundException err) {
+            try(PrintWriter printwriter = new PrintWriter(filewriter)){
+                printwriter.println(viewbloc.jta_espacio.getText());
+            
+            }
+            
+            
+        }catch (FileNotFoundException err) {
             System.err.println("File not found: " + err.getMessage());
         } catch (IOException err) {
             System.err.println("Error on I/O operation: " + err.getMessage());
@@ -122,6 +123,35 @@ public class ControllerBloc {
            // String linea; //definimos la variable linea q sera la que estemos almacenando en el objeto de la linea 103 de tipo StringBuilder
             StringBuilder contenido = new StringBuilder(); 
             while ((cadena = bufferedreader.readLine()) != null) {
+                contenido.append(cadena);
+                contenido.append("\n");
+            }
+            viewbloc.jta_espacio.setText(contenido.toString());
+
+        } catch (FileNotFoundException err) {
+            System.err.println("File not found: " + err.getMessage());
+        } catch (IOException err) {
+            System.err.println("Error on I/O operation: " + err.getMessage());
+        } 
+    }
+}
+    
+     public void decifrarArchivo() {
+        String cadena;
+    JFileChooser jfc = new JFileChooser(); //CREAMOS UN OBJETO PARA ACCEDER AL FILECHOSER
+    jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);//definimos el modo de seleccion para el obejto
+    FileNameExtensionFilter filtro = new FileNameExtensionFilter(null, "txt");//agregamos el filtro txt
+    jfc.setFileFilter(filtro);
+    if (JFileChooser.APPROVE_OPTION == jfc.showOpenDialog(viewbloc)) { 
+        File archivo = jfc.getSelectedFile(); //asignamos la seleccion del file choser a la variable archivo
+
+        try {
+            FileReader lector = new FileReader(archivo); //definimos una variable lector nulla para despues guardar el espacion en el buffered
+            BufferedReader bufferedreader = new BufferedReader(lector);//le pasamos la variable lector al objeto de buffered para reservar espacio
+           // String linea; //definimos la variable linea q sera la que estemos almacenando en el objeto de la linea 103 de tipo StringBuilder
+            StringBuilder contenido = new StringBuilder(); 
+            while ((cadena = bufferedreader.readLine()) != null) {
+                cadena = modelbloc.decifrarDatos(cadena);
                 contenido.append(cadena);
                 contenido.append("\n");
             }
